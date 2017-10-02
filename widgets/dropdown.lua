@@ -9,8 +9,8 @@ local Dropdown = LibStub('Classy-1.0'):New('Frame'); Dropdown:Hide()
 OmniCCOptions.Dropdown = Dropdown
 
 function Dropdown:New(name, parent, width)
-	local f = self:Bind(CreateFrame('Frame', parent:GetName() .. name, parent, 'UIDropDownMenuTemplate'))
-	UIDropDownMenu_SetWidth(f, width)
+	local f = self:Bind(CreateFrame('Frame', parent:GetName() .. name, parent, 'L_UIDropDownMenuTemplate'))
+	L_UIDropDownMenu_SetWidth(f, width)
 
 	local text = f:CreateFontString(nil, 'BACKGROUND', 'GameFontNormalSmall')
 	text:SetPoint('BOTTOMLEFT', f, 'TOPLEFT', 21, 0)
@@ -37,8 +37,8 @@ function Dropdown:GetSavedText()
 end
 
 function Dropdown:UpdateValue()
-	UIDropDownMenu_SetSelectedValue(self, self:GetSavedValue())
-	UIDropDownMenu_SetText(self, self:GetSavedText())
+	L_UIDropDownMenu_SetSelectedValue(self, self:GetSavedValue())
+	L_UIDropDownMenu_SetText(self, self:GetSavedText())
 end
 
 
@@ -47,7 +47,7 @@ end
 function Dropdown:AddItem(name, value, tooltip)
   value = value or name
   
-	local info = UIDropDownMenu_CreateInfo()
+	local info = L_UIDropDownMenu_CreateInfo()
 	info.text = name
   info.checked = (self:GetSavedValue() == value)
 	info.func = function()
@@ -61,5 +61,5 @@ function Dropdown:AddItem(name, value, tooltip)
     info.tooltipOnButton = true
   end
 
-	UIDropDownMenu_AddButton(info)
+	L_UIDropDownMenu_AddButton(info)
 end

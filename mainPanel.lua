@@ -75,7 +75,7 @@ local function deleteGroup(self, groupId)
 	OmniCC:RemoveGroup(groupId)
 
 	--hide the previous dropdown menus (hack)
-	for i = 1, UIDROPDOWNMENU_MENU_LEVEL-1 do
+	for i = 1, L_UIDropDownMenu_MENU_LEVEL-1 do
 		_G["DropDownList"..i]:Hide()
 	end
 end
@@ -85,7 +85,7 @@ local function addGroup(self)
 end
 
 local function groupSelector_Create(parent, size, onSetGroup)
-	local dd =  CreateFrame('Frame', parent:GetName() .. 'GroupSelector', parent, 'UIDropDownMenuTemplate')
+	local dd =  CreateFrame('Frame', parent:GetName() .. 'GroupSelector', parent, 'L_UIDropDownMenuTemplate')
 
 	dd.SetSavedValue = function(self, value)
 		onSetGroup(parent, value)
@@ -97,48 +97,48 @@ local function groupSelector_Create(parent, size, onSetGroup)
 
 	--delete button for custom groups
 	local function init_levelTwo(self, level)
-		local info = UIDropDownMenu_CreateInfo()
+		local info = L_UIDropDownMenu_CreateInfo()
 		info.text = DELETE
-		info.arg1 = UIDROPDOWNMENU_MENU_VALUE
+		info.arg1 = L_UIDropDownMenu_MENU_VALUE
 		info.func = deleteGroup
 		info.owner = self
 		info.notCheckable = true
-		UIDropDownMenu_AddButton(info, level)
+		L_UIDropDownMenu_AddButton(info, level)
 	end
 
 	local function init_levelOne(self, level)
 		local groups = sort(map(OmniCC.sets.groups, function(g) return g.id end))
 		
 		--base group
-		local info = UIDropDownMenu_CreateInfo()
+		local info = L_UIDropDownMenu_CreateInfo()
 		info.text = L['Group_base']
 		info.value = 'base'
 		info.func = selectGroup
 		info.owner = self
 		info.hasArrow = false
-		UIDropDownMenu_AddButton(info, level)
+		L_UIDropDownMenu_AddButton(info, level)
 
 		--custom groups (add delete button)
 		for i, g in ipairs(groups) do
-			local info = UIDropDownMenu_CreateInfo()
+			local info = L_UIDropDownMenu_CreateInfo()
 			info.text = L['Group_' .. g] or g
 			info.value = g
 			info.func = selectGroup
 			info.owner = self
 			info.hasArrow = true
-			UIDropDownMenu_AddButton(info, level)
+			L_UIDropDownMenu_AddButton(info, level)
 		end
 
 		--new group button
-		local info = UIDropDownMenu_CreateInfo()
+		local info = L_UIDropDownMenu_CreateInfo()
 		info.text = L.AddGroup
 		info.func = addGroup
 		info.owner = self
 		info.notCheckable = true
-		UIDropDownMenu_AddButton(info, level)
+		L_UIDropDownMenu_AddButton(info, level)
 	end
 
-	UIDropDownMenu_Initialize(dd, function(self, level)
+	L_UIDropDownMenu_Initialize(dd, function(self, level)
 		level = level or 1
 		if level == 1 then
 			init_levelOne(self, level)
@@ -147,8 +147,8 @@ local function groupSelector_Create(parent, size, onSetGroup)
 		end
 	end)
 
-	UIDropDownMenu_SetWidth(dd, 120)
-	UIDropDownMenu_SetSelectedValue(dd, dd:GetSavedValue())
+	L_UIDropDownMenu_SetWidth(dd, 120)
+	L_UIDropDownMenu_SetSelectedValue(dd, dd:GetSavedValue())
 
 	dd:SetPoint('TOPRIGHT', 4, -8)
 	return dd
@@ -303,8 +303,8 @@ end
 
 local function optionsPanel_SetGroup(self, groupId)
 	self.selectedGroup = groupId or 'base'
-	UIDropDownMenu_SetSelectedValue(self.dropdown, groupId)
-	UIDropDownMenu_SetText(self.dropdown, L['Group_' .. groupId] or groupId)
+	L_UIDropDownMenu_SetSelectedValue(self.dropdown, groupId)
+	L_UIDropDownMenu_SetText(self.dropdown, L['Group_' .. groupId] or groupId)
 
 	--special handling for the base tab
 	--since we don't want the user to mess with the rules tab

@@ -332,7 +332,7 @@ function GeneralOptions:CreateFinishEffectPicker()
 		return NONE
 	end
 
-	UIDropDownMenu_Initialize(dd, function(self)
+	L_UIDropDownMenu_Initialize(dd, function(self)
 		for n, v in ipairs(effects) do
 			self:AddItem(v.name, v.value, v.tooltip)
 		end
