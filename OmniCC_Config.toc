@@ -3,7 +3,7 @@
 ## Notes: OmniCC's configuration menu
 ## Notes-koKR: OmniCC의 설정 메뉴
 ## Author: Tuller
-## Dependencies: OmniCC, LibUIDropDownMenu
+## Dependencies: OmniCC
 ## LoadOnDemand: 1
 
 libs\libs.xml
